@@ -1,80 +1,364 @@
 /* 
- * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
- * See LICENSE in the project root for license information.
+ * DK Rental Outlook Add-in
+ * Custom styles for property management
  */
 
- html,
- body {
-     width: 100%;
-     height: 100%;
-     margin: 0;
-     padding: 0;
- }
- 
- ul {
-     margin: 0;
-     padding: 0;
- }
- 
- .ms-welcome__header {
-    padding: 20px;
-    padding-bottom: 30px;
-    padding-top: 100px;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    align-items: center;
- }
-
- .ms-welcome__main {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-flex: 1 0 0;
-    flex: 1 0 0;
-    padding: 10px 20px;
- }
- 
- .ms-welcome__main > h2 {
-     width: 100%;
-     text-align: center;
- }
- 
- .ms-welcome__features {
-     list-style-type: none;
-     margin-top: 20px;
- }
- 
- .ms-welcome__features.ms-List .ms-ListItem {
-     padding-bottom: 20px;
-     display: -webkit-flex;
-     display: flex;
- }
- 
- .ms-welcome__features.ms-List .ms-ListItem > .ms-Icon {
-     margin-right: 10px;
- }
- 
- .ms-welcome__action.ms-Button--hero {
-     margin-top: 30px;
- }
- 
-.ms-Button.ms-Button--hero .ms-Button-label {
-  color: #0078d7;
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.ms-Button.ms-Button--hero:hover .ms-Button-label,
-.ms-Button.ms-Button--hero:focus .ms-Button-label{
-  color: #005a9e;
-  cursor: pointer;
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+.ms-welcome__header {
+    padding: 20px;
+    padding-bottom: 20px;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f3f2f1;
+    border-bottom: 2px solid #0078d4;
+}
+
+.ms-welcome__header h1 {
+    color: #1e1e1e;
+    margin: 10px 0 5px 0;
+}
+
+.ms-welcome__header p {
+    color: #605e5c;
+    margin: 0;
+}
+
+.ms-welcome__main {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 20px;
+    background-color: #ffffff;
+}
+
+.email-info-card {
+    background-color: #f3f2f1;
+    border-left: 4px solid #0078d4;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 2px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.email-info-card h3 {
+    margin: 0 0 8px 0;
+    color: #323130;
+}
+
+.email-info-card p {
+    margin: 4px 0;
+    color: #201f1e;
+}
+
+.dk-card {
+    background-color: #edebe9;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #c8c6c4;
+}
+
+.dk-card h3 {
+    margin: 0 0 8px 0;
+    color: #0078d4;
+}
+
+.ms-welcome__features {
+    list-style-type: none;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.ms-welcome__features.ms-List .ms-ListItem {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #edebe9;
+    transition: background-color 0.2s;
+}
+
+.ms-welcome__features.ms-List .ms-ListItem:hover {
+    background-color: #f3f2f1;
+    cursor: pointer;
+}
+
+.ms-welcome__features.ms-List .ms-ListItem > .ms-Icon {
+    margin-right: 15px;
+    color: #0078d4;
+    font-size: 20px;
+}
+
+.action-item {
+    transition: all 0.2s;
+}
+
+.action-item:active {
+    background-color: #edebe9;
+    transform: scale(0.98);
+}
+
+.dk-button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 90%;
+    margin-top: 15px;
+}
+
+.ms-welcome__action {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    border-radius: 2px;
+    transition: all 0.2s;
+}
+
+.ms-Button--primary {
+    background-color: #0078d4;
+    color: white;
+    border: none;
+}
+
+.ms-Button--primary:hover {
+    background-color: #106ebe;
+    cursor: pointer;
+}
+
+.ms-Button--hero {
+    background-color: transparent;
+    color: #0078d4;
+    border: 1px solid #8a8886;
+}
+
+.ms-Button--hero:hover {
+    background-color: #f3f2f1;
+    cursor: pointer;
+}
+
+.ms-Button-label {
+    font-weight: 600;
+}
+
+.status-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 12px;
+    display: none;
+}
+
+.status-message.success {
+    display: block;
+    background-color: #dff6dd;
+    color: #107c10;
+    border: 1px solid #107c10;
+}
+
+.status-message.error {
+    display: block;
+    background-color: #fde7e9;
+    color: #d83b01;
+    border: 1px solid #d83b01;
 }
 
 b {
     font-weight: bold;
+}
+
+/* Responsive design */
+@media (max-width: 400px) {
+    .ms-welcome__header {
+        padding: 15px;
+    }
+    
+    .ms-welcome__features.ms-List .ms-ListItem {
+        padding: 10px;
+    }
+    
+    .ms-welcome__features.ms-List .ms-ListItem > .ms-Icon {
+        font-size: 18px;
+        margin-right: 10px;
+    }
+}
+
+/* ========== REGENERATE BUTTON SECTION ========== */
+:root {
+    --primary: #0078d4;
+    --primary-light: #106ebe;
+    --accent: #0078d4;
+    --text-light: #605e5c;
+    --border: #edebe9;
+    --hover: #f3f2f1;
+}
+
+.regenerate-section {
+    background: linear-gradient(to right, #f8f9fc, #ffffff);
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.regenerate-section h3 {
+    font-size: 12px;
+    color: #6c757d;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+
+}
+
+.regenerate-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 16px;
+    margin-top: 16px;
+}
+
+.regenerate-button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.regenerate-button:hover {
+    background: var(--primary-light);
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.regenerate-button:active {
+    transform: scale(0.98);
+}
+
+.regenerate-button .emoji {
+    font-size: 20px;
+}
+
+.regenerate-hint {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 8px;
+    text-align: center;
+}
+
+/* .regeneratable-content {
+    background: var(--hover);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 12px;
+    border: 1px dashed var(--accent);
+    transition: opacity 0.3s ease;
+} */
+
+.regeneratable-content.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.property-insights h4 {
+    font-size: 13px;
+    color: var(--primary);
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+}
+
+#insights-content {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.insight-item {
+    padding: 8px;
+    background: white;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    border-left: 3px solid var(--accent);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.insight-item:last-child {
+    margin-bottom: 0;
+}
+
+.insight-label {
+    font-weight: 600;
+    color: var(--text-light);
+    font-size: 11px;
+    display: block;
+    margin-bottom: 2px;
+    font-weight: bold;
+}
+
+.insight-value {
+    color: #201f1e;
+    font-size: 13px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Optional floating button - add if you want it */
+.floating-regenerate {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.floating-regenerate:hover {
+    transform: rotate(180deg) scale(1.1);
+    background: var(--primary-light);
+}
+
+.floating-regenerate:active {
+    transform: rotate(180deg) scale(0.95);
 }
