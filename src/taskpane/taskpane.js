@@ -181,56 +181,57 @@ async function regenerateContent(isFirstLoad = false) {
 }
 
 async function fetchAIResponse() {
-    const item = Office.context.mailbox.item;
+  const item = Office.context.mailbox.item;
 
-    const email_body = await new Promise((resolve, reject) => {
-        item.body.getAsync(Office.CoercionType.Text, (bodyResult) => {
-            if (bodyResult.status === Office.AsyncResultStatus.Failed) {
-                reject(bodyResult.error.message);
-            } else {
-                resolve(bodyResult.value);
-            }
-        });
-    });
+  const email_body = await new Promise((resolve, reject) => {
+      item.body.getAsync(Office.CoercionType.Text, (bodyResult) => {
+          if (bodyResult.status === Office.AsyncResultStatus.Failed) {
+              reject(bodyResult.error.message);
+          } else {
+              resolve(bodyResult.value);
+          }
+      });
+  });
 
-    const response = await fetch('https://localhost:5000/api/analyze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            subject: item.subject,
-            body: email_body
-        })
-    });
+  const BACKEND_API_URL = process.env.BACKEND_API_URL || "https://localhost:5000";
+  const response = await fetch(`${BACKEND_API_URL}/api/analyze`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+          subject: item.subject,
+          body: email_body
+      })
+  });
 
-    const aiResponse = await response.json();
+  const aiResponse = await response.json();
 
-    // Return HTML string to be injected into insightsDiv
-    return `
-        <div class="insight-item">
-            <span class="insight-label">Category</span>
-            <span class="insight-value">${aiResponse.category}</span>
-        </div>
-        <div class="insight-item">
-            <span class="insight-label">Subcategory</span>
-            <span class="insight-value">${aiResponse.subcategory}</span>
-        </div>
-        <div class="insight-item">
-            <span class="insight-label">Summary</span>
-            <span class="insight-value">${aiResponse.summary}</span>
-        </div>
-        <div class="insight-item">
-            <span class="insight-label">Intent</span>
-            <span class="insight-value">${aiResponse.intent}</span>
-        </div>
-        <div class="insight-item">
-            <span class="insight-label">Suggested Action</span>
-            <span class="insight-value">${aiResponse.copilot_action}</span>
-        </div>
-        <div class="insight-item" style="flex-direction: column; gap: 8px;">
-            <span class="insight-label">Draft Reply</span>
-            <span class="insight-value" style="white-space: pre-wrap;">${aiResponse.draft_reply}</span>
-        </div>
-    `;
+  // Return HTML string to be injected into insightsDiv
+  return `
+      <div class="insight-item">
+          <span class="insight-label">Category</span>
+          <span class="insight-value">${aiResponse.category}</span>
+      </div>
+      <div class="insight-item">
+          <span class="insight-label">Subcategory</span>
+          <span class="insight-value">${aiResponse.subcategory}</span>
+      </div>
+      <div class="insight-item">
+          <span class="insight-label">Summary</span>
+          <span class="insight-value">${aiResponse.summary}</span>
+      </div>
+      <div class="insight-item">
+          <span class="insight-label">Intent</span>
+          <span class="insight-value">${aiResponse.intent}</span>
+      </div>
+      <div class="insight-item">
+          <span class="insight-label">Suggested Action</span>
+          <span class="insight-value">${aiResponse.copilot_action}</span>
+      </div>
+      <div class="insight-item" style="flex-direction: column; gap: 8px;">
+          <span class="insight-label">Draft Reply</span>
+          <span class="insight-value" style="white-space: pre-wrap;">${aiResponse.draft_reply}</span>
+      </div>
+  `;
 }
 
 // load the email body and fetch AI response when the page first load
