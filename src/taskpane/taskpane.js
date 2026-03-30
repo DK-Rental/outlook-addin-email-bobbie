@@ -18,25 +18,11 @@ Office.onReady((info) => {
         document.getElementById("sideload-msg").style.display = "none";
         document.getElementById("app-body").style.display = "flex";
         
-        // Load email details
+        // Load email details, will call 
         loadEmailDetails();
         
         // Set up event listeners
         setupEventListeners();
-        
-        // Set up regenerate button (moved inside Office.onReady)
-        const regenerateBtn = document.getElementById("regenerate-btn");
-        if (regenerateBtn) {
-            regenerateBtn.onclick = () => regenerateContent(false); // ✅ manual click
-        }
-
-        // Optional keyboard shortcut
-        document.addEventListener('keydown', (e) => {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'r') {
-                e.preventDefault();
-                regenerateContent(false); // ✅ manual click
-            }
-        });
     }
 });
 
@@ -46,14 +32,26 @@ function setupEventListeners() {
     document.getElementById("schedule-viewing").onclick = scheduleViewing;
     document.getElementById("process-payment").onclick = processPayment;
     document.getElementById("tenant-info").onclick = showTenantInfo;
-    
     // Buttons
     document.getElementById("save-to-property").onclick = saveEmailToProperty;
+    
+    // Set up regenerate button (moved inside Office.onReady)
+    const regenerateBtn = document.getElementById("regenerate-btn");
+    if (regenerateBtn) {
+        regenerateBtn.onclick = () => regenerateContent(false); // ✅ manual click
+    }
+
+    // Optional keyboard shortcut
+    document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'r') {
+            e.preventDefault();
+            regenerateContent(false); // ✅ manual click
+        }
+    });
 }
 
-
 function checkPropertyLink() {
-    // This would check your company's database
+    // This would check your company's database (not implemented yet)
     // For demo, we'll show a mock property if email contains certain keywords
     const item = Office.context.mailbox.item;
     
@@ -66,17 +64,9 @@ function checkPropertyLink() {
     }
 }
 
+// handler function, feature not implemented yet
 function linkToProperty() {
-    showStatus("Opening property selector...", "success");
-    
-    // This would open a dialog to select a property
-    Office.context.ui.displayDialogAsync(
-        'https://localhost:3000/property-selector.html',
-        { height: 60, width: 30 },
-        function(result) {
-            console.log("Dialog opened: " + JSON.stringify(result));
-        }
-    );
+    showStatus("Link to Property is under construction", "error");
 }
 
 function scheduleViewing() {
@@ -93,39 +83,17 @@ function scheduleViewing() {
     showStatus("Creating viewing appointment...", "success");
 }
 
+// handler function, feature not implemented yet
 function processPayment() {
-    showStatus("Opening payment processor...", "success");
-    
-    // Extract potential payment info from email
-    const item = Office.context.mailbox.item;
-    
-    // This would open payment dialog
-    alert(`Process payment for: ${item.subject}\nThis would integrate with your payment system.`);
+    showStatus("Process Payment is under construction", "error");
 }
 
+// handler function, feature not implemented yet
 function showTenantInfo() {
-    // This would fetch tenant info from your database
-    const mockTenant = {
-        name: "John Smith",
-        phone: "(604) 555-0123",
-        email: "john.smith@email.com",
-        property: "123 Main St",
-        leaseStart: "Jan 1, 2025",
-        rent: "$2,500/month"
-    };
-    
-    const message = `Tenant Information:
-Name: ${mockTenant.name}
-Phone: ${mockTenant.phone}
-Email: ${mockTenant.email}
-Property: ${mockTenant.property}
-Lease Start: ${mockTenant.leaseStart}
-Rent: ${mockTenant.rent}`;
-    
-    alert(message);
-    showStatus("Tenant info loaded", "success");
+    showStatus("Tenant Information is under construction", "error");
 }
 
+// handler function, feature not implemented yet, content just for testing
 function saveEmailToProperty() {
     const item = Office.context.mailbox.item;
     
@@ -140,27 +108,34 @@ function saveEmailToProperty() {
     
     // Show property card if not visible
     document.getElementById("property-card").style.display = "block";
-    document.getElementById("property-address").textContent = "Current Property";
-    document.getElementById("property-details").textContent = "Email linked to property records";
+    document.getElementById("property-address").textContent = "Testing: Property Address";
+    document.getElementById("property-details").textContent = "Testing: Email linked to property records of <property name>";
 }
+
+
+// status message box
+let statusTimeout = null;
 
 function showStatus(message, type) {
     const statusEl = document.getElementById("status-message");
+    
+    // Clear any existing hide timer
+    if (statusTimeout) {
+        clearTimeout(statusTimeout);
+        statusTimeout = null;
+    }
+
     statusEl.textContent = message;
     statusEl.className = `status-message ${type}`;
-    
-    // Hide after 3 seconds
-    setTimeout(() => {
+    statusEl.style.display = "block";
+
+    statusTimeout = setTimeout(() => {
         statusEl.style.display = "none";
+        statusTimeout = null;
     }, 3000);
 }
 
-// Export for module usage
-export async function run() {
-    // Legacy function - now using the new UI
-    loadEmailDetails();
-}
-
+// Handler function for regenrate button
 async function regenerateContent(isFirstLoad = false) {
     const button = document.getElementById("regenerate-btn");
     const contentDiv = document.getElementById("regeneratable-content");
@@ -174,7 +149,7 @@ async function regenerateContent(isFirstLoad = false) {
     contentDiv.classList.add("loading");
     
     try {
-        const newContent = await fetchNewData();
+        const newContent = await fetchAIResponse();
         
         insightsDiv.style.opacity = '0';
         
@@ -205,7 +180,7 @@ async function regenerateContent(isFirstLoad = false) {
     }
 }
 
-async function fetchNewData() {
+async function fetchAIResponse() {
     const item = Office.context.mailbox.item;
 
     const email_body = await new Promise((resolve, reject) => {
@@ -258,12 +233,7 @@ async function fetchNewData() {
     `;
 }
 
-// // Optional: Floating button click handler (if you added it)
-// const floatingBtn = document.getElementById("floating-regenerate");
-// if (floatingBtn) {
-//     floatingBtn.onclick = regenerateContent;
-// }
-
+// load the email body and fetch AI response when the page first load
 function loadEmailDetails() {
     const item = Office.context.mailbox.item;
     
@@ -277,10 +247,16 @@ function loadEmailDetails() {
     
     item.body.getAsync("text", { asyncContext: this }, function(result) {
         if (result.status === Office.AsyncResultStatus.Succeeded) {
-            currentEmail.body = result.value.substring(0, 200);
+            currentEmail.body = result.value;
         }
     });
     
     checkPropertyLink();
     regenerateContent(true); // ✅ auto-run AI analysis on load
+}
+
+// Export for module usage
+export async function run() {
+    // Legacy function - now using the new UI
+    loadEmailDetails();
 }

@@ -20,7 +20,8 @@
 
 <body class="ms-font-m ms-welcome ms-Fabric">
     <header class="ms-welcome__header ms-bgColor-neutralLighter">
-        <img width="90" height="90" src="../../assets/logo-filled.png" alt="DK Rental" title="DK Rental" />
+        <!-- company logo not available -->
+        <!-- <img width="90" height="90" src="../../assets/logo-filled.png" alt="DK Rental" title="DK Rental" /> -->
         <h1 class="ms-font-su">DK Rental</h1>
         <p class="ms-font-l">Property Management</p>
     </header>
@@ -63,31 +64,30 @@
             </div>
         </div>
 
-        <!-- Inside main-content, add this before the status message div -->
+        <div id="status-message" class="status-message"></div>
 
-<!-- 🔄 REGENERATE SECTION - ADD THIS -->
-<div class="action-group regenerate-section">
-    <h3>AI Insights</h3>
+        <!-- 🔄 REGENERATE SECTION - ADD THIS -->
+        <div class="action-group regenerate-section">
+            <h3>AI Insights</h3>
 
-    <!-- Content that will be regenerated -->
-    <div id="regeneratable-content" class="regeneratable-content">
-        <div class="property-insights">
-            <div id="insights-content">
-                Loading insights...
+            <!-- Content that will be regenerated -->
+            <div id="regeneratable-content" class="regeneratable-content">
+                <div class="property-insights">
+                    <div id="insights-content">
+                        Loading insights...
+                    </div>
+                </div>
+                <div class="regenerate-container">
+                <button id="regenerate-btn" class="regenerate-button">
+                    <span class="emoji">🔄</span>
+                    <span>Regenerate Email Analysis</span>
+                </button>
+                <p class="regenerate-hint">Fetch latest property data and refresh content</p>
+            </div>
             </div>
         </div>
-        <div class="regenerate-container">
-        <button id="regenerate-btn" class="regenerate-button">
-            <span class="emoji">🔄</span>
-            <span>Regenerate Email Analysis</span>
-        </button>
-        <p class="regenerate-hint">Fetch latest property data and refresh content</p>
-    </div>
-    </div>
 
 
-</div>
-        <div id="status-message" class="status-message"></div>
     </main>
     
     <!-- Hidden sideload message (shown only if not loaded correctly) -->
