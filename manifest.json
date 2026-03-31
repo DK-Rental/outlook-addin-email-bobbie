@@ -8,7 +8,7 @@
         "additionalLanguages": []
     },
     "developer": {
-        "name": "Contoso",
+        "name": "BCIT ISSP group",
         "websiteUrl": "https://www.contoso.com",
         "privacyUrl": "https://www.contoso.com/privacy",
         "termsOfUseUrl": "https://www.contoso.com/servicesagreement"
@@ -147,30 +147,6 @@
                                                 "description": "Opens a pane displaying all available properties."
                                             },
                                             "actionId": "TaskPaneRuntimeShow"
-                                        },
-                                        {
-                                            "id": "ActionButton",
-                                            "type": "button",
-                                            "label": "Perform an action",
-                                            "icons": [
-                                                {
-                                                    "size": 16,
-                                                    "url": "https://gray-tree-064c7eb0f.6.azurestaticapps.net/assets/icon-16.png"
-                                                },
-                                                {
-                                                    "size": 32,
-                                                    "url": "https://gray-tree-064c7eb0f.6.azurestaticapps.net/assets/icon-32.png"
-                                                },
-                                                {
-                                                    "size": 80,
-                                                    "url": "https://gray-tree-064c7eb0f.6.azurestaticapps.net/assets/icon-80.png"
-                                                }
-                                            ],
-                                            "supertip": {
-                                                "title": "Perform an action",
-                                                "description": "Perform an action when clicked."
-                                            },
-                                            "actionId": "action"
                                         }
                                     ]
                                 }

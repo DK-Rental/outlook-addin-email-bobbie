@@ -362,3 +362,8 @@ b {
 .floating-regenerate:active {
     transform: rotate(180deg) scale(0.95);
 }
+
+footer {
+    font-size: 8px;
+    color:  rgb(117, 124, 131)
+}
