@@ -4,6 +4,7 @@
  */
 
 /* global document, Office */
+import config from "./config.js";
 
 let currentEmail = {
     subject: '',
@@ -150,9 +151,7 @@ async function regenerateContent(isFirstLoad = false) {
     
     try {
         const newContent = await fetchAIResponse();
-        
         insightsDiv.style.opacity = '0';
-        
         setTimeout(() => {
             insightsDiv.innerHTML = newContent;
             insightsDiv.style.opacity = '1';
@@ -165,9 +164,10 @@ async function regenerateContent(isFirstLoad = false) {
         }, 300);
         
     } catch (error) {
+        insightsDiv.innerHTML = "Error generating AI response";
+        insightsDiv.style.opacity = '1';
         showStatus("Error generating AI response", "error");
         console.error(error);
-        
     } finally {
         setTimeout(() => {
             // ✅ Only restore button if manual click
@@ -192,9 +192,9 @@ async function fetchAIResponse() {
           }
       });
   });
-
-  const BACKEND_API_URL = process.env.BACKEND_API_URL || "https://localhost:5000";
-  const response = await fetch(`${BACKEND_API_URL}/api/analyze`, {
+  const API_URL = config.API_URL;
+  console.log("debugging purpose: ",API_URL);
+  const response = await fetch(`${API_URL}/api/analyze`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

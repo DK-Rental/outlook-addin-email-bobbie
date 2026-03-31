@@ -32,6 +32,9 @@ jobs:
                const coredemo = require('@actions/core')
                return await coredemo.getIDToken()
            result-encoding: string
+      - name: Create config file
+        run: |
+          echo "const config = { API_URL: '${{ secrets.BACKEND_API_URL }}' }; export default config;" > src/taskpane/config.js
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
